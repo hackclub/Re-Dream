@@ -126,9 +126,55 @@ body::before {
     transform: translateY(0px) scale(0.97);
 }
 
-.rsvp-button:active, .cta-rsvp-button:active {
-    transform: translateX(0) scale(0.97);
+/* Image button reset */
+.img-btn {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    display: inline-block;
+    transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+.img-btn img {
+    display: block;
+    height: auto;
+}
+
+.rsvp-button:active, .faq-button:active {
+    transform: scale(0.97);
     filter: none;
+}
+
+.cta-rsvp-button:active {
+    transform: translateX(-50%) scale(0.97);
+    filter: none;
+}
+
+.rsvp-button {
+    max-width: 250px;
+}
+
+.rsvp-button img {
+    max-width: 250px;
+}
+
+.rsvp-button:hover {
+    transform: translateY(-5px) scale(1.06);
+    filter: drop-shadow(0 8px 16px rgba(102, 126, 234, 0.5));
+}
+
+.faq-button {
+    max-width: 120px;
+}
+
+.faq-button img {
+    max-width: 120px;
+}
+
+.faq-button:hover {
+    transform: translateY(-5px) scale(1.06);
+    filter: drop-shadow(0 8px 16px rgba(245, 87, 108, 0.5));
 }
 
 /* Section Styles */
@@ -481,37 +527,6 @@ p {
 }
 
 
-.faq-button {
-    max-width: 120px;
-    height: auto;
-    display: inline-block;
-    cursor: pointer;
-    transition: transform 0.2s ease, filter 0.2s ease;
-}
-
-.faq-button:hover {
-    transform: translateY(-5px) scale(1.06);
-    filter: drop-shadow(0 8px 16px rgba(245, 87, 108, 0.5));
-}
-
-.faq-button:active {
-    transform: scale(0.97);
-    filter: none;
-}
-
-.rsvp-button {
-    max-width: 250px;
-    height: auto;
-    display: inline-block;
-    cursor: pointer;
-    transition: transform 0.2s ease, filter 0.2s ease;
-}
-
-.rsvp-button:hover {
-    transform: translateY(-5px) scale(1.06);
-    filter: drop-shadow(0 8px 16px rgba(102, 126, 234, 0.5));
-}
-
 .cta-image {
     max-width: 1200px;
     width: 100%;
@@ -534,11 +549,11 @@ p {
     left: 50%;
     transform: translateX(-50%);
     max-width: 220px;
-    height: auto;
-    display: block;
-    cursor: pointer;
-    transition: transform 0.2s ease, filter 0.2s ease;
     z-index: 2;
+}
+
+.cta-rsvp-button img {
+    max-width: 220px;
 }
 
 .cta-rsvp-button:hover {
@@ -603,3 +618,24 @@ footer {
         max-width: 300px;
     }
 }
+/* Decorative Bob characters */
+.bob-decoration {
+    position: absolute;
+    pointer-events: none;
+    z-index: 2;
+}
+
+/* bob1 - tall wispy pink/purple */
+.bob-1a { top: 360px;  right: 4%;  width: 85px;  transform: rotate(-6deg); opacity: 0.9; }
+.bob-1b { top: 1600px; left: 2%;   width: 70px;  transform: scaleX(-1) rotate(10deg); opacity: 0.8; }
+.bob-1c { top: 3000px; right: 6%;  width: 80px;  transform: rotate(8deg); opacity: 0.85; }
+
+/* bob2 - sleepy meditating */
+.bob-2a { top: 950px;  left: 3%;   width: 72px;  transform: rotate(5deg); opacity: 0.85; }
+.bob-2b { top: 2200px; right: 5%;  width: 65px;  transform: scaleX(-1) rotate(-8deg); opacity: 0.8; }
+.bob-2c { top: 3500px; left: 4%;   width: 75px;  transform: rotate(-4deg); opacity: 0.9; }
+
+/* bob3 - tall standing with long legs */
+.bob-3a { top: 1300px; right: 3%;  width: 95px;  transform: scaleX(-1) rotate(-4deg); opacity: 0.9; }
+.bob-3b { top: 2700px; left: 3%;   width: 85px;  transform: rotate(6deg); opacity: 0.85; }
+.bob-3c { top: 3900px; right: 4%;  width: 90px;  transform: scaleX(-1) rotate(-7deg); opacity: 0.8; }
