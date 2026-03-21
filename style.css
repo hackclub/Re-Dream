@@ -9,7 +9,7 @@ body {
     color: #5b6b7f;
     overflow-x: hidden;
     background: linear-gradient(to bottom, rgba(224, 213, 240, 1) 0%, rgba(224, 213, 240, 1) 30%, transparent 00%), url('bgg.png');
-    background-size: 100% auto, cover;
+    background-size: 30% auto, cover;
     background-position: top, center;
     background-attachment: scroll, scroll;
     background-blend-mode: multiply;
@@ -58,7 +58,7 @@ body::before {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    margin-bottom: 40px;
+    margin-bottom: 0px;
     text-transform: uppercase;
     letter-spacing: 2px;
 }
@@ -68,6 +68,15 @@ body::before {
     color: #667eea;
     margin-bottom: 30px;
     font-weight: 700;
+}
+
+/* Hero Logo */
+.hero-logo {
+    max-width: 1200px;
+    width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto 40px auto;
 }
 
 /* Button Styles */
@@ -109,8 +118,17 @@ body::before {
 }
 
 .btn-secondary:hover {
-    transform: translateY(-3px);
+    transform: translateY(-5px) scale(1.06);
     box-shadow: 0 12px 30px rgba(245, 87, 108, 0.4);
+}
+
+.btn:active {
+    transform: translateY(0px) scale(0.97);
+}
+
+.rsvp-button:active, .cta-rsvp-button:active {
+    transform: translateX(0) scale(0.97);
+    filter: none;
 }
 
 /* Section Styles */
@@ -137,14 +155,21 @@ p {
 
 /* About Section */
 .about {
-    background: rgba(255, 255, 255, 0.5);
-    border-radius: 20px;
+    
+    max-width: 1600px;
+    width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto 40px auto;
     padding: 60px 40px;
 }
 
-.about p {
-    font-size: 1.2em;
-    margin-bottom: 25px;
+.hour-msg {
+    max-width: 2000px;
+    width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
 }
 
 /* Cards Container */
@@ -197,6 +222,48 @@ p {
     color: #7a8694;
 }
 
+/* Projects Section */
+.projects-section {
+    text-align: center;
+    padding: 60px 20px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.ship-msg {
+    max-width: 800px;
+    width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto 40px auto;
+}
+
+.projects-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+}
+
+.project-btn {
+    max-width: 600px;
+    width: 90%;
+    height: auto;
+    display: block;
+    cursor: pointer;
+    transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+.project-btn:hover {
+    transform: translateY(-4px) scale(1.03);
+    filter: drop-shadow(0 6px 14px rgba(102, 126, 234, 0.35));
+}
+
+.project-btn:active {
+    transform: scale(0.97);
+    filter: none;
+}
+
 /* Features Section */
 .features {
     background: linear-gradient(135deg, #e0d5f0 0%, #f5e6d3 100%);
@@ -247,8 +314,8 @@ p {
 
 /* Hero Section - adjusted for fixed header */
 .hero {
-    margin-top: 0;
-    padding: 80px 20px 60px;
+    margin-top: -200px;
+    padding: 20px 20px 60px;
 }
 
 /* Scrolling Rewards Section */
@@ -305,7 +372,7 @@ p {
     align-items: center;
     justify-content: center;
     min-width: 280px;
-    height: 200px;
+    height: 290px;
     transition: all 0.3s ease;
     position: relative;
     overflow: visible;
@@ -332,6 +399,12 @@ p {
 
 .cloud-item.var3 {
     background: url('var 3.png');
+    background-size: cover;
+    background-position: center;
+    border: none;
+}
+.cloud-item.var4 {
+    background: url('var 4.png');
     background-size: cover;
     background-position: center;
     border: none;
@@ -407,20 +480,47 @@ p {
     max-width: 250px;
     height: auto;
     display: inline-block;
+    cursor: pointer;
+    transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+.rsvp-button:hover {
+    transform: translateY(-5px) scale(1.06);
+    filter: drop-shadow(0 8px 16px rgba(102, 126, 234, 0.5));
 }
 
 .cta-image {
     max-width: 1200px;
+    width: 100%;
     height: auto;
     display: block;
     margin: 0 auto;
 }
 
+.cta-wrapper {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
 .cta-rsvp-button {
-    max-width: 250px;
+    position: absolute;
+    bottom: 17%;
+    left: 50%;
+    transform: translateX(-50%);
+    max-width: 220px;
     height: auto;
     display: block;
-    margin: 0 auto 30px auto;
+    cursor: pointer;
+    transition: transform 0.2s ease, filter 0.2s ease;
+    z-index: 2;
+}
+
+.cta-rsvp-button:hover {
+    transform: translateX(-50%) translateY(-5px) scale(1.06);
+    filter: drop-shadow(0 8px 16px rgba(102, 126, 234, 0.5));
 }
 
 .cta {
@@ -429,6 +529,8 @@ p {
     align-self: center;
     margin: 60px auto;
     max-width: 1200px;
+    display: flex;
+    justify-content: center;
 }
 
 .cta h2 {
