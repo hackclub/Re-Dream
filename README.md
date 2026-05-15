@@ -5,3 +5,5 @@ A site for my site submitted to the 2026 intership applications!
 
 # AI was used in the creation of the site
 Claude sonnet 4.6 helped with coding the site
+
+**ALL ART DRAWN BY MY SISTER @ottimations!! NO AI ART WAS USED!!!**
