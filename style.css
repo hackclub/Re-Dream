@@ -262,17 +262,17 @@ p {
 
 .card.blue {
     border-color: #667eea;
-    background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+    background: linear-gradient(135deg, #dde3fb 0%, #e8d9f5 100%);
 }
 
 .card.pink {
     border-color: #f5576c;
-    background: linear-gradient(135deg, rgba(240, 147, 251, 0.1) 0%, rgba(245, 87, 108, 0.1) 100%);
+    background: linear-gradient(135deg, #fbe0fd 0%, #fddde1 100%);
 }
 
 .card.yellow {
     border-color: #ffa502;
-    background: linear-gradient(135deg, rgba(255, 165, 2, 0.1) 0%, rgba(255, 200, 100, 0.1) 100%);
+    background: linear-gradient(135deg, #fff0cc 0%, #fde8b0 100%);
 }
 
 .card h3 {
@@ -658,3 +658,260 @@ footer {
 .bob-3a { top: 1300px; right: 3%;  width: 95px;  transform: scaleX(-1) rotate(-4deg); opacity: 0.9; }
 .bob-3b { top: 2700px; left: 3%;   width: 85px;  transform: rotate(6deg); opacity: 0.85; }
 .bob-3c { top: 3900px; right: 4%;  width: 90px;  transform: scaleX(-1) rotate(-7deg); opacity: 0.8; }
+
+/* ===== NEW CONTENT SECTIONS ===== */
+
+/* About Section */
+.about-section {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 60px 30px 20px;
+    text-align: center;
+}
+
+.about-text-card {
+    background: white;
+    border-radius: 30px;
+    padding: 50px 50px;
+    box-shadow: 0 10px 40px rgba(102, 126, 234, 0.15);
+    border: 2px solid rgba(102, 126, 234, 0.2);
+}
+
+.about-text-card p {
+    font-size: 1.25em;
+    line-height: 1.9;
+    color: #5b6b7f;
+    margin-bottom: 18px;
+}
+
+.about-text-card p:last-child {
+    margin-bottom: 0;
+}
+
+.about-text-card strong {
+    color: #667eea;
+    font-weight: 800;
+}
+
+/* Ship Section */
+.ship-section {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 60px 30px;
+    text-align: center;
+}
+
+.section-title {
+    font-size: 2.5em;
+    font-weight: 900;
+    color: #667eea;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.section-subtitle {
+    font-size: 1.3em;
+    color: #764ba2;
+    font-weight: 700;
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+.card-emoji {
+    font-size: 2.5em;
+    margin-bottom: 12px;
+    display: block;
+}
+
+.or-anything {
+    margin-top: 40px;
+    font-size: 1.2em;
+    color: #764ba2;
+    font-weight: 700;
+    text-align: center;
+}
+
+/* Chips Section */
+.chips-section {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 60px 30px;
+    text-align: center;
+}
+
+.chips-section .section-subtitle strong {
+    color: #f5576c;
+}
+
+.chips-flow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin: 50px 0;
+    flex-wrap: wrap;
+}
+
+.chips-step {
+    background: white;
+    border-radius: 24px;
+    padding: 30px 28px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+    border: 2px solid rgba(102, 126, 234, 0.25);
+    min-width: 180px;
+    flex: 1;
+    max-width: 220px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.chips-step:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 14px 36px rgba(102, 126, 234, 0.2);
+}
+
+.chips-icon {
+    font-size: 2.4em;
+    margin-bottom: 10px;
+}
+
+.chips-label {
+    font-size: 1.1em;
+    font-weight: 900;
+    color: #667eea;
+    margin-bottom: 8px;
+}
+
+.chips-desc {
+    font-size: 0.9em;
+    color: #7a8694;
+    line-height: 1.5;
+}
+
+.chips-arrow {
+    font-size: 2em;
+    color: #667eea;
+    font-weight: 900;
+    opacity: 0.5;
+    padding: 0 4px;
+}
+
+/* Grants Grid */
+.grants-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.grant-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 18px;
+    background: white;
+    border-radius: 20px;
+    padding: 24px 28px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+    border-left: 5px solid #667eea;
+    text-align: left;
+    transition: transform 0.3s ease;
+}
+
+.grant-item:hover {
+    transform: translateY(-4px);
+}
+
+.grant-item.steam-item {
+    border-left-color: #f5576c;
+    background: #fdf0f8;
+}
+
+.grant-icon {
+    font-size: 2em;
+    flex-shrink: 0;
+}
+
+.grant-text strong {
+    display: block;
+    font-size: 1.1em;
+    color: #5b6b7f;
+    font-weight: 800;
+    margin-bottom: 4px;
+}
+
+.grant-text p {
+    font-size: 0.9em;
+    color: #7a8694;
+    margin: 0;
+    text-align: left;
+    line-height: 1.5;
+}
+
+/* Stickers Section */
+.stickers-section {
+    max-width: 700px;
+    margin: 0 auto 60px;
+    padding: 0 30px;
+    text-align: center;
+}
+
+.stickers-card {
+    background: #f0edfb;
+    border: 3px dashed rgba(102, 126, 234, 0.4);
+    border-radius: 30px;
+    padding: 50px 50px;
+}
+
+.stickers-emoji {
+    font-size: 3em;
+    margin-bottom: 16px;
+}
+
+.stickers-card h3 {
+    font-size: 1.8em;
+    font-weight: 900;
+    color: #667eea;
+    margin-bottom: 16px;
+}
+
+.stickers-card p {
+    font-size: 1.15em;
+    color: #5b6b7f;
+    line-height: 1.8;
+    margin: 0;
+    text-align: center;
+}
+
+.stickers-card strong {
+    color: #f5576c;
+    font-weight: 800;
+}
+
+/* Responsive tweaks for new sections */
+@media (max-width: 768px) {
+    .about-text-card {
+        padding: 35px 28px;
+    }
+
+    .chips-flow {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .chips-arrow {
+        transform: rotate(90deg);
+        padding: 4px 0;
+    }
+
+    .chips-step {
+        max-width: 100%;
+        width: 100%;
+    }
+
+    .stickers-card {
+        padding: 35px 28px;
+    }
+
+    .section-title {
+        font-size: 2em;
+    }
+}

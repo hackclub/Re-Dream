@@ -1,0 +1,202 @@
+/* ================================================
+   faq.css — styles specific to the FAQ page
+   Requires style.css to be loaded first
+   ================================================ */
+
+/* Shrink the banner header on the FAQ page so it doesn't
+   leave a giant gap. The main page hero overlaps it with a
+   negative margin; the FAQ page has no such element. */
+.top-header {
+    padding: 40px 0;          /* was 175px — much tighter */
+}
+
+/* ── Page hero ────────────────────────────────── */
+.faq-hero {
+    text-align: center;
+    padding: 30px 20px 30px;  /* reduced top padding */
+    margin-top: 0;
+}
+
+.faq-hero h1 {
+    font-size: 3.5em;
+    font-weight: 900;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+}
+
+.faq-hero p {
+    font-size: 1.2em;
+    color: #764ba2;
+    font-weight: 600;
+    margin-bottom: 0;
+}
+
+/* ── Back button ──────────────────────────────── */
+.back-btn-wrap {
+    padding: 20px 30px 0;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    color: #667eea;
+    font-weight: 800;
+    font-size: 1em;
+    background: white;
+    padding: 10px 22px;
+    border-radius: 30px;
+    box-shadow: 0 4px 14px rgba(102, 126, 234, 0.2);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.back-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+}
+
+/* ── FAQ container & layout ───────────────────── */
+.faq-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px 30px 80px;
+}
+
+.faq-category {
+    margin-bottom: 50px;
+}
+
+/* ── Category labels ──────────────────────────── */
+.faq-category-title {
+    font-size: 1.3em;
+    font-weight: 900;
+    color: white;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    display: inline-block;
+    padding: 8px 24px;
+    border-radius: 30px;
+    margin-bottom: 20px;
+    letter-spacing: 0.5px;
+}
+
+.faq-category.pink-cat .faq-category-title {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+}
+
+/* ── Individual FAQ cards (static, no accordion) ─ */
+.faq-item {
+    background: white;
+    border-radius: 20px;
+    margin-bottom: 12px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.07);
+    border: 2px solid rgba(102, 126, 234, 0.2);
+    padding: 22px 28px;
+}
+
+.faq-item.pink-accent {
+    border-color: rgba(245, 87, 108, 0.2);
+}
+
+.faq-question-text {
+    font-size: 1.05em;
+    font-weight: 800;
+    color: #667eea;
+    margin-bottom: 10px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.faq-item.pink-accent .faq-question-text {
+    color: #f5576c;
+}
+
+.faq-answer-text {
+    font-size: 1em;
+    color: #7a8694;
+    line-height: 1.8;
+    text-align: left;
+    margin: 0;
+}
+
+.faq-answer-text + .faq-answer-text {
+    margin-top: 10px;
+}
+
+.faq-answer-text a {
+    color: #667eea;
+    font-weight: 700;
+    text-decoration: none;
+    border-bottom: 2px solid rgba(102, 126, 234, 0.3);
+}
+
+.faq-answer-text a:hover {
+    border-bottom-color: #667eea;
+}
+
+/* ── Contact card ─────────────────────────────── */
+.contact-card {
+    background: white;
+    border: 3px dashed rgba(102, 126, 234, 0.35);
+    border-radius: 24px;
+    padding: 40px;
+    text-align: center;
+    margin-top: 20px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.07);
+}
+
+.contact-card .contact-emoji {
+    font-size: 2.5em;
+    display: block;
+    margin-bottom: 14px;
+}
+
+.contact-card h3 {
+    font-size: 1.5em;
+    font-weight: 900;
+    color: #667eea;
+    margin-bottom: 12px;
+}
+
+.contact-card p {
+    color: #5b6b7f;
+    font-size: 1.05em;
+    line-height: 1.7;
+    text-align: center;
+    margin: 0;
+}
+
+.contact-card a {
+    color: #f5576c;
+    font-weight: 800;
+    text-decoration: none;
+}
+
+/* ── Responsive ───────────────────────────────── */
+@media (max-width: 768px) {
+    .top-header {
+        padding: 20px 0;
+    }
+
+    .faq-hero h1 {
+        font-size: 2.4em;
+    }
+
+    .faq-container {
+        padding: 20px 16px 60px;
+    }
+
+    .faq-item {
+        padding: 18px 20px;
+    }
+
+    .contact-card {
+        padding: 30px 24px;
+    }
+}

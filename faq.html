@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Re-Dream FAQ</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="faq.css">
+</head>
+<body>
+    <header class="top-header">
+        <div class="header-content"></div>
+    </header>
+
+    <div class="content">
+        <!-- Decorative Bobs -->
+        <img src="bob1.png" alt="" class="bob-decoration bob-1a">
+        <img src="bob2.png" alt="" class="bob-decoration bob-2a">
+        <img src="bob3.png" alt="" class="bob-decoration bob-3a">
+
+        <div class="back-btn-wrap reveal">
+            <a href="index.html" class="back-btn">← Back to Re-Dream</a>
+        </div>
+
+        <div class="faq-hero reveal">
+            <h1>FAQ</h1>
+            <p>Got questions? We've got answers!</p>
+        </div>
+
+        <div class="faq-container">
+
+            <!-- Da Basics -->
+            <div class="faq-category reveal">
+                <div class="faq-category-title">Da Basics</div>
+
+                <div class="faq-item">
+                    <div class="faq-question-text">What is Re-Dream?</div>
+                    <p class="faq-answer-text">Re-Dream is an opportunity to work on something you're truly passionate about and we will provide you with the budget to make your dream game just as good as you've imagined it!</p>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question-text">Who can participate?</div>
+                    <p class="faq-answer-text">This event is open to anyone aged 13–18, regardless of skill level.</p>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question-text">All this for free? Is this legit?</div>
+                    <p class="faq-answer-text">Yup, all for free! Hack Club is a 501(c)(3) non-profit organization, and we've run a bunch of events like this in the past including a 180-person hardware hackathon at GitHub HQ and a seven-day game jam in Shanghai, China.</p>
+                </div>
+
+            <!-- Projects -->
+            <div class="faq-category pink-cat reveal reveal-delay-1">
+                <div class="faq-category-title">Projects</div>
+
+                <div class="faq-item pink-accent">
+                    <div class="faq-question-text">I've never coded before. Can I still participate?</div>
+                    <p class="faq-answer-text">Yes, we want you to! This hackathon is for all skill levels. We'll be running workshops and support calls to help everyone learn together.</p>
+                </div>
+
+                <div class="faq-item pink-accent">
+                    <div class="faq-question-text">What can I make?</div>
+                    <p class="faq-answer-text">Any kind of technical project is allowed websites, games, hardware, anything!</p>
+                </div>
+
+                <div class="faq-item pink-accent">
+                    <div class="faq-question-text">How many projects can I make?</div>
+                    <p class="faq-answer-text">As many as you want! Projects only count toward your progress when they're in a usable state they don't need to be finished, but anything you submit should be demowable.</p>
+                </div>
+
+                <div class="faq-item pink-accent">
+                    <div class="faq-question-text">Can I submit an existing project?</div>
+                    <p class="faq-answer-text">Existing projects are allowed, but you can only submit time that was logged after February 22nd, 2026.</p>
+                </div>
+
+                <div class="faq-item pink-accent">
+                    <div class="faq-question-text">Does my project need to be on GitHub?</div>
+                    <p class="faq-answer-text">All projects must be open source on GitHub or another similar software forge.</p>
+                </div>
+            </div>
+
+            <!-- Other -->
+            <div class="faq-category reveal reveal-delay-2">
+                <div class="faq-category-title">Other</div>
+
+                <div class="faq-item">
+                    <div class="faq-question-text">Can I use AI?</div>
+                    <p class="faq-answer-text">Use of generative AI for graphics and audio is prohibited. AI for other purposes is allowed, but we won't accept projects that qualify as "AI slop." You also shouldn't use AI to write updates or project descriptions.</p>
+                    <p class="faq-answer-text" style="margin-top: 10px;">"AI slop" means projects that feel like they have little human effort put in think "interactive periodic table" or "generic task management website." We reserve the right to decide whether a project qualifies. If your project is polished and has a real human touch, we're highly unlikely to reject it!</p>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question-text">Can I submit to this event and another Hack Club program?</div>
+                    <p class="faq-answer-text">Sorry, nope! "Double-dipping" is not allowed. If you make a project for this event, you can only submit it here unless another program specifically states otherwise.</p>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question-text">Can I get involved or contribute?</div>
+                    <p class="faq-answer-text">We love this question! We'd love more help running workshops, support calls, or even help organizing AMAs. If any of these interest you, let us know!</p>
+                </div>
+            </div>
+
+            <!-- Contact card -->
+            <div class="contact-card reveal">
+                <span class="contact-emoji"></span>
+                <h3>Still have questions?</h3>
+                <p>Reach out at <a href="n/a">email@hackclub.com</a> or #re-dream we'd love to hear from you!</p>
+            </div>
+
+        </div>
+    </div>
+
+    <footer class="reveal">
+        <p>Made with Love by Skylar and Jordan!</p>
+    </footer>
+
+    <script>
+        // Scroll reveal only no accordion
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>
