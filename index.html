@@ -2,9 +2,18 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1, minimum-scale=1">
     <title>Re-Dream</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            background: linear-gradient(to bottom, rgba(224, 213, 240, 1) 0%, rgba(224, 213, 240, 1) 30%, transparent 0%), url('bgg2.png');
+            background-size: 30% auto, cover;
+            background-position: top, center;
+            background-attachment: scroll, scroll;
+            background-blend-mode: multiply;
+        }
+    </style>
 </head>
 <body>
     <!-- Header -->
@@ -28,7 +37,7 @@
         <section class="hero">
             <img src="Logo.png" alt="Re-Dream" class="hero-logo reveal">
             <div class="button-group reveal reveal-delay-2">
-                <button class="img-btn rsvp-button"><img src="RSVP.png" alt="RSVP" onclick="alert('To be implemented later!')"></button>
+                <a href="https://rsvp.soon.it/re-dream" class="img-btn rsvp-button" target="_blank" rel="noopener noreferrer"><img src="RSVP.png" alt="RSVP"></a>
                 <a href="faq.html" class="img-btn faq-button"><img src="faq.png" alt="FAQ"></a>
             </div>
         </section>
@@ -37,15 +46,15 @@
         <section class="about-section reveal">
             <div class="about-text-card">
                 <p class="about-intro">Every 10 hour devlog you ship you get 500 chips added to your budget!</p>
-                <p>You can use your chips to get things that will improve your game; artist  commissions, libraries, tools, or even a Steam publishing key.</p>
-                <p>It's simple: log hours, earn chips, then spendthose  chips making your dream game just as good as you've imagined!</p>
+                <p>You can use your chips to get things that will improve your game: artist commissions, libraries, tools, or even a Steam publishing key.</p>
+                <p>It's simple: log hours, earn chips, then spend those chips making your dream game just as good as you've imagined!</p>
             </div>
         </section>
 
         <!-- WHAT CAN YOU SHIP -->
         <section class="ship-section">
             <h2 class="section-title reveal">What can you ship?</h2>
-            <p class="section-subtitle reveal reveal-delay-1">Your can ship any game at all!</p>
+            <p class="section-subtitle reveal reveal-delay-1">You can ship any game at all!</p>
             <div class="cards-container reveal reveal-delay-2">
                 <div class="card var-card">
                     <img src="var 1.png" alt="Variety 1" class="var-card-img">
@@ -69,19 +78,19 @@
 
             <div class="chips-flow reveal reveal-delay-2">
                 <div class="chips-step">
-                    <div class="chips-icon"></div>
+                    
                     <div class="chips-label">Log 10 Hours</div>
                     <div class="chips-desc">Submit a devlog every 10 hours</div>
                 </div>
                 <div class="chips-arrow">></div>
                 <div class="chips-step">
-                    <div class="chips-icon"></div>
+                    
                     <div class="chips-label">Earn 500 Chips</div>
                     <div class="chips-desc">Gets added to your budget after your devlog is approved!</div>
                 </div>
                 <div class="chips-arrow">></div>
                 <div class="chips-step">
-                    <div class="chips-icon"></div>
+                    
                     <div class="chips-label">Apply for Grants</div>
                     <div class="chips-desc">Spend chips on whatever you want for your project</div>
                 </div>
@@ -89,21 +98,21 @@
 
             <div class="grants-grid reveal reveal-delay-3">
                 <div class="grant-item">
-                    <span class="grant-icon"></span>
+                    
                     <div class="grant-text">
                         <strong>Commission Art</strong>
                         <p>Make it look exactly how you imagined</p>
                     </div>
                 </div>
                 <div class="grant-item">
-                    <span class="grant-icon"></span>
+                    
                     <div class="grant-text">
                         <strong>Buy Libraries</strong>
                         <p>Makes your life a lot easier when coding!</p>
                     </div>
                 </div>
                 <div class="grant-item steam-item">
-                    <span class="grant-icon"></span>
+                    
                     <div class="grant-text">
                         <strong>Steam Publishing</strong>
                         <p>you can spend 1000 chips to publish your game to Steam!</p>
@@ -115,9 +124,21 @@
         <!-- STICKERS BONUS -->
         <section class="stickers-section reveal">
             <div class="stickers-card">
-                <div class="stickers-emoji"></div>
                 <h3>Stickers!</h3>
                 <p>You won't receive anything until you ship your first 10 hours devlog, but after you do, not only will you get 500 chips, but you will also get an EXCLUSIVE STICKER SHEET!!</p>
+            </div>
+        </section>
+
+        <!-- DEMO GAME SECTION -->
+        <section class="demo-section reveal">
+            <div class="demo-container">
+                <div class="demo-text">
+                    <h2>Check out the demo project!</h2>
+                    <p>This could be submitted to Re-Dream!!</p>
+                </div>
+                <div class="demo-image">
+                    <a href="https://bolb2019.itch.io/just-beats-and-dungeons" target="_blank" rel="noopener noreferrer"><img src="image.png" alt="Demo Game Project"></a>
+                </div>
             </div>
         </section>
 
@@ -125,7 +146,7 @@
         <section class="cta">
             <div class="cta-wrapper reveal">
                 <img src="CTA.png" alt="Call to Action" class="cta-image">
-                <button class="img-btn cta-rsvp-button"><img src="RSVP.png" alt="RSVP" onclick="alert('To be implemented later!')"></button>
+                <a href="https://rsvp.soon.it/re-dream" class="img-btn cta-rsvp-button" target="_blank" rel="noopener noreferrer"><img src="RSVP.png" alt="RSVP"></a>
             </div>
         </section>
     </div>

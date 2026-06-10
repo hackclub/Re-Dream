@@ -8,7 +8,7 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: #5b6b7f;
     overflow-x: hidden;
-    background: linear-gradient(to bottom, rgba(224, 213, 240, 1) 0%, rgba(224, 213, 240, 1) 30%, transparent 00%), url('bgg.png');
+    background: linear-gradient(to bottom, rgba(224, 213, 240, 1) 0%, rgba(224, 213, 240, 1) 30%, transparent 0%), url('bgg.png');
     background-size: 30% auto, cover;
     background-position: top, center;
     background-attachment: scroll, scroll;
@@ -72,8 +72,7 @@ body::before {
 
 /* Hero Logo */
 .hero-logo {
-    max-width: 1200px;
-    width: 100%;
+    width: min(100%, 1200px);
     height: auto;
     display: block;
     margin: 0 auto 40px auto;
@@ -86,6 +85,7 @@ body::before {
     justify-content: center;
     margin: 40px 0;
     flex-wrap: wrap;
+    align-items: center;
 }
 
 .btn {
@@ -151,12 +151,16 @@ body::before {
     border: none;
     padding: 0;
     cursor: pointer;
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
     transition: transform 0.2s ease, filter 0.2s ease;
 }
 
 .img-btn img {
     display: block;
+    width: 100%;
     height: auto;
 }
 
@@ -171,11 +175,11 @@ body::before {
 }
 
 .rsvp-button {
-    max-width: 250px;
+    width: clamp(170px, 15vw, 340px);
 }
 
 .rsvp-button img {
-    max-width: 250px;
+    width: 100%;
 }
 
 .rsvp-button:hover {
@@ -184,11 +188,11 @@ body::before {
 }
 
 .faq-button {
-    max-width: 120px;
+    width: clamp(85px, 7.5vw, 170px);
 }
 
 .faq-button img {
-    max-width: 120px;
+    width: 100%;
 }
 
 .faq-button:hover {
@@ -199,7 +203,7 @@ body::before {
 /* Section Styles */
 section {
     padding: 80px 20px;
-    max-width: 1200px;
+    width: min(100%, 1200px);
     margin: 0 auto;
 }
 
@@ -547,8 +551,7 @@ p {
 
 
 .cta-image {
-    max-width: 1200px;
-    width: 100%;
+    width: min(100%, 1200px);
     height: auto;
     display: block;
     margin: 0 auto;
@@ -557,8 +560,7 @@ p {
 .cta-wrapper {
     position: relative;
     display: inline-block;
-    width: 100%;
-    max-width: 1200px;
+    width: min(100%, 1200px);
     margin: 0 auto;
 }
 
@@ -567,12 +569,12 @@ p {
     bottom: 17%;
     left: 50%;
     transform: translateX(-50%);
-    max-width: 220px;
+    width: clamp(140px, 14vw, 320px);
     z-index: 2;
 }
 
 .cta-rsvp-button img {
-    max-width: 220px;
+    width: 100%;
 }
 
 .cta-rsvp-button:hover {
@@ -913,5 +915,116 @@ footer {
 
     .section-title {
         font-size: 2em;
+    }
+
+    .demo-container {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .demo-text {
+        margin-bottom: 40px;
+    }
+
+    .demo-text h2 {
+        font-size: 2em;
+    }
+
+    .demo-image img {
+        max-width: 100%;
+        height: auto;
+    }
+}
+
+/* Demo Section */
+.demo-section {
+    padding: 80px 20px;
+    margin: 60px auto;
+    max-width: 1200px;
+}
+
+.demo-container {
+    display: flex;
+    align-items: center;
+    gap: 60px;
+    justify-content: space-between;
+}
+
+.demo-text {
+    flex: 1;
+    min-width: 300px;
+}
+
+.demo-text h2 {
+    font-size: 2.2em;
+    font-weight: 900;
+    color: #667eea;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.demo-text p {
+    font-size: 1.1em;
+    color: #5b6b7f;
+    text-align: left;
+    margin: 0;
+    line-height: 1.6;
+}
+
+.demo-image {
+    flex: 1;
+    min-width: 300px;
+    text-align: right;
+}
+
+.demo-image img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 20px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease;
+}
+
+.demo-image img:hover {
+    transform: translateY(-10px);
+    filter: drop-shadow(0 8px 16px rgba(245, 87, 108, 0.5));
+}
+
+@media (min-width: 1800px) {
+    .hero-logo,
+    section,
+    .cta-image,
+    .cta-wrapper {
+        width: min(72vw, 1500px);
+    }
+
+    .about-section {
+        max-width: 980px;
+    }
+
+    .ship-section {
+        max-width: 1360px;
+    }
+
+    .chips-section {
+        max-width: 1240px;
+    }
+
+    .stickers-section {
+        max-width: 860px;
+    }
+
+    .rsvp-button {
+        width: clamp(220px, 12vw, 420px);
+    }
+
+    .faq-button {
+        width: clamp(110px, 6vw, 210px);
+    }
+
+    .cta-rsvp-button {
+        width: clamp(180px, 11vw, 380px);
     }
 }

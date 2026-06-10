@@ -1,5 +1,5 @@
 /* ================================================
-   faq.css — styles specific to the FAQ page
+   faq.css - styles specific to the FAQ page
    Requires style.css to be loaded first
    ================================================ */
 
@@ -7,10 +7,10 @@
    leave a giant gap. The main page hero overlaps it with a
    negative margin; the FAQ page has no such element. */
 .top-header {
-    padding: 40px 0;          /* was 175px — much tighter */
+    padding: 40px 0;          /* was 175px - much tighter */
 }
 
-/* ── Page hero ────────────────────────────────── */
+/* Page hero */
 .faq-hero {
     text-align: center;
     padding: 30px 20px 30px;  /* reduced top padding */
@@ -36,7 +36,7 @@
     margin-bottom: 0;
 }
 
-/* ── Back button ──────────────────────────────── */
+/* Back button */
 .back-btn-wrap {
     padding: 20px 30px 0;
     max-width: 900px;
@@ -63,7 +63,7 @@
     box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
 }
 
-/* ── FAQ container & layout ───────────────────── */
+/* FAQ container & layout */
 .faq-container {
     max-width: 900px;
     margin: 0 auto;
@@ -74,7 +74,7 @@
     margin-bottom: 50px;
 }
 
-/* ── Category labels ──────────────────────────── */
+/* Category labels */
 .faq-category-title {
     font-size: 1.3em;
     font-weight: 900;
@@ -91,7 +91,7 @@
     background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
 }
 
-/* ── Individual FAQ cards (static, no accordion) ─ */
+/* Individual FAQ cards (static, no accordion) */
 .faq-item {
     background: white;
     border-radius: 20px;
@@ -140,7 +140,7 @@
     border-bottom-color: #667eea;
 }
 
-/* ── Contact card ─────────────────────────────── */
+/* Contact card */
 .contact-card {
     background: white;
     border: 3px dashed rgba(102, 126, 234, 0.35);
@@ -178,7 +178,7 @@
     text-decoration: none;
 }
 
-/* ── Responsive ───────────────────────────────── */
+/* Responsive */
 @media (max-width: 768px) {
     .top-header {
         padding: 20px 0;
