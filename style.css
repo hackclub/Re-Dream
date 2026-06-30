@@ -43,7 +43,7 @@ body {
 /* Buttons */
 .button-group {
     display: flex;
-    gap: 20px;
+    gap: 60px;
     justify-content: center;
     flex-wrap: wrap;
     align-items: center;
@@ -65,8 +65,8 @@ body {
     height: auto;
 }
 
-.rsvp-button { width: clamp(170px, 15vw, 340px); }
-.faq-button  { width: clamp(85px, 7.5vw, 170px); }
+.rsvp-button { width: clamp(372px, 15vw, 340px); }
+.faq-button  { width: clamp(185px, 7.5vw, 170px); }
 
 .rsvp-button:hover { transform: translateY(-5px) scale(1.06); filter: drop-shadow(0 8px 16px rgba(102,126,234,0.5)); }
 .rsvp-button:active { transform: scale(0.97); filter: none; }
