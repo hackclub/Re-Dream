@@ -71,7 +71,7 @@
     margin-left: -110px;
     height: auto;
     display: block;
-    margin-bottom: 10px;
+    margin-bottom: -20px;
 }
 
 /* Help Banner */
@@ -81,11 +81,12 @@
 }
 
 .help-banner img {
-    width:100%;
+    width:140%;
     max-width:1100px;
     height:auto;
     display:block;
     margin:0 auto;
+    margin-left: -150px;
 }
 
 /* Responsive */

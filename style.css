@@ -69,8 +69,15 @@ body {
     height: auto;
 }
 
-.rsvp-button { width: clamp(372px, 15vw, 340px); }
-.faq-button  { width: clamp(185px, 7.5vw, 170px); }
+.rsvp-button { 
+    width: clamp(372px, 15vw, 340px);
+    margin-top: -40px;
+}
+
+.faq-button  { 
+    width: clamp(185px, 7.5vw, 170px);
+    margin-top: -40px;
+}
 
 .rsvp-button:hover { transform: translateY(-5px) scale(1.06); filter: drop-shadow(0 8px 16px rgba(102,126,234,0.5)); }
 .rsvp-button:active { transform: scale(0.97); filter: none; }
