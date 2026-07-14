@@ -1,6 +1,6 @@
 import { slack } from '$lib/server/slack'
-import type { ServerLoad } from '@sveltejs/kit'
+import type { RequestHandler } from './$types'
 
-export const POST: ServerLoad = async (request) => {
+export const POST: RequestHandler = async (request) => {
 	return slack.receiver.fetch(request.request)
 }
