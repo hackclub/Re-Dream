@@ -1,4 +1,5 @@
 import { env } from '$env/dynamic/private'
+import { EXTERNAL_URL } from '$lib/server/config'
 import { error, redirect, type ServerLoad } from '@sveltejs/kit'
 
 export const GET: ServerLoad = async (request) => {
@@ -11,7 +12,7 @@ export const GET: ServerLoad = async (request) => {
 		body: JSON.stringify({
 			client_id: env.HCA_CLIENT_ID,
 			client_secret: env.HCA_CLIENT_SECRET,
-			redirect_uri: `${env.EXTERNAL_URL}/auth/hackclub/callback`,
+			redirect_uri: `${EXTERNAL_URL}/auth/hackclub/callback`,
 			code,
 			grant_type: 'authorization_code',
 		}),
@@ -85,7 +86,7 @@ export const GET: ServerLoad = async (request) => {
 		'https://hackatime.hackclub.com/oauth/authorize?response_type=code&scope=profile+read',
 	)
 	hackatimeUrl.searchParams.set('client_id', env.HACKATIME_CLIENT_ID)
-	hackatimeUrl.searchParams.set('redirect_uri', `${env.EXTERNAL_URL}/auth/hackatime/callback`)
+	hackatimeUrl.searchParams.set('redirect_uri', `${EXTERNAL_URL}/auth/hackatime/callback`)
 	hackatimeUrl.searchParams.set('state', authState)
 	return redirect(307, hackatimeUrl)
 }

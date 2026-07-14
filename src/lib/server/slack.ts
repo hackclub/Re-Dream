@@ -1,6 +1,7 @@
 import { env } from '$env/dynamic/private'
 import { waitUntil } from '@vercel/functions'
 import { App, blocks, header, R, richText, section } from 'slack.ts'
+import { EXTERNAL_URL } from './config'
 
 export const slack = new App({
 	token: env.SLACK_BOT_TOKEN,
@@ -31,7 +32,7 @@ slack.on('home', async (event) => {
 			blocks: blocks(
 				header('Re-Dream'),
 				section(
-					`hey, welcome to <#${env.SLACK_MAIN_CHANNEL}>! it seems like you're not signed up yet. please go to <${env.EXTERNAL_URL}/auth/hackclub/redirect|this link> to sign up!`,
+					`hey, welcome to <#${env.SLACK_MAIN_CHANNEL}>! it seems like you're not signed up yet. please go to <${EXTERNAL_URL}/auth/hackclub/redirect|this link> to sign up!`,
 				),
 			),
 		})

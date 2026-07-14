@@ -1,4 +1,5 @@
 import { env } from '$env/dynamic/private'
+import { EXTERNAL_URL } from '$lib/server/config'
 import { slack } from '$lib/server/slack'
 import { error, redirect, type ServerLoad } from '@sveltejs/kit'
 import { SlackWebAPIPlatformError } from 'slack.ts'
@@ -16,7 +17,7 @@ export const GET: ServerLoad = async (request) => {
 		body: new URLSearchParams({
 			client_id: env.HACKATIME_CLIENT_ID,
 			client_secret: env.HACKATIME_CLIENT_SECRET,
-			redirect_uri: `${env.EXTERNAL_URL}/auth/hackatime/callback`,
+			redirect_uri: `${EXTERNAL_URL}/auth/hackatime/callback`,
 			code,
 			grant_type: 'authorization_code',
 		}),
