@@ -1,8 +1,9 @@
 import { env } from '$env/dynamic/private'
 import { EXTERNAL_URL } from '$lib/server/config'
-import { error, redirect, type ServerLoad } from '@sveltejs/kit'
+import { error, redirect } from '@sveltejs/kit'
+import type { RequestHandler } from './$types'
 
-export const GET: ServerLoad = async (request) => {
+export const GET: RequestHandler = async (request) => {
 	const code = request.url.searchParams.get('code')
 	if (!code) return error(400, 'No code specified')
 
@@ -39,11 +40,15 @@ export const GET: ServerLoad = async (request) => {
 	} = (await profileResp.json()) as HCAIdentity
 
 	if (!ysws_eligible) {
-		return "You are not eligible for Hack Club YSWS, or you haven't verified your identity yet. Visit https://auth.hackclub.com/verifications/new to verify your identity and login again!"
+		return new Response(
+			"You are not eligible for Hack Club YSWS, or you haven't verified your identity yet. Visit https://auth.hackclub.com/verifications/new to verify your identity and login again!",
+		)
 	}
 	const address = addresses.find((a) => a.primary) || addresses[0]
 	if (!address) {
-		return "You don't have an address configured on Hack Club Auth. Add one in https://auth.hackclub.com/addresses and login again!"
+		return new Response(
+			"You don't have an address configured on Hack Club Auth. Add one in https://auth.hackclub.com/addresses and login again!",
+		)
 	}
 
 	const authState = crypto.randomUUID()

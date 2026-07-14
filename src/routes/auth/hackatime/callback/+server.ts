@@ -1,10 +1,11 @@
 import { env } from '$env/dynamic/private'
 import { EXTERNAL_URL } from '$lib/server/config'
 import { slack } from '$lib/server/slack'
-import { error, redirect, type ServerLoad } from '@sveltejs/kit'
+import { error, redirect } from '@sveltejs/kit'
 import { SlackWebAPIPlatformError } from 'slack.ts'
+import type { RequestHandler } from './$types'
 
-export const GET: ServerLoad = async (request) => {
+export const GET: RequestHandler = async (request) => {
 	const code = request.url.searchParams.get('code')
 	const state = request.url.searchParams.get('state')
 	if (!state || !code) return error(400, 'State or code not found')
@@ -43,7 +44,7 @@ export const GET: ServerLoad = async (request) => {
 	const hackatimeResp = await fetch('https://hackatime.hackclub.com/api/v1/authenticated/me', {
 		headers: { Authorization: `Bearer ${access_token}` },
 	})
-	if (!hackatimeResp) return error(500, 'Failed to get hackatime info')
+	if (!hackatimeResp.ok) return error(500, 'Failed to get hackatime info')
 	const { id } = await hackatimeResp.json()
 
 	const updateUserResp = await fetch(
