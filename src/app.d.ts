@@ -35,6 +35,14 @@ declare global {
 		phone_number?: string
 		primary?: boolean
 	}
+
+	interface HackatimeProject {
+		name: string
+		total_seconds: number
+		most_recent_heartbeat: string
+		languages: string[]
+		archived: boolean
+	}
 }
 
 export {}
