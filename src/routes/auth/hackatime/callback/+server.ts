@@ -65,7 +65,9 @@ export const GET: ServerLoad = async (request) => {
 		}
 	}
 	const dm = await slack.user(slackId).im()
-	await dm.send('hello and welcome to re-dream!')
+	await dm.send(
+		`hi, and welcome to <#${env.SLACK_MAIN_CHANNEL}>! i'll be sending you reminders when your projects and grants are reviewed.\n\nhelpful resources:\n* submit your project: https://forms.hackclub.com/re-dream-submit\n* apply for a grant: https://forms.hackclub.com/re-dream-apply\n* check your balance: slack://app?team=T0266FRGM&id=${env.SLACK_APP_ID}&tab=home`,
+	)
 
 	return redirect(307, `https://hackclub.enterprise.slack.com/archives/${dm.id}`)
 }
