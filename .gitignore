@@ -1,0 +1,15 @@
+node_modules
+
+# Output
+.output
+.vercel
+.svelte-kit
+build
+
+# OS / editor
+.DS_Store
+
+# Env
+.env
+.env.*
+!.env.example
