@@ -1,9 +1,10 @@
 import { env } from '$env/dynamic/private'
+import { waitUntil } from '@vercel/functions'
 import { App, blocks, header, R, richText, section } from 'slack.ts'
 
 export const slack = new App({
 	token: env.SLACK_BOT_TOKEN,
-	receiver: { type: 'fetch', signingSecret: env.SLACK_SIGNING_SECRET },
+	receiver: { type: 'fetch', signingSecret: env.SLACK_SIGNING_SECRET, waitUntil },
 })
 
 slack.on('home', async (event) => {
