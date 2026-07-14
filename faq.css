@@ -95,15 +95,46 @@
         padding: 20px 0;
     }
 
+    .back-btn-wrap { padding: 16px 16px 0; }
+    .back-btn img { height: 60px; }
+
+    /* Header banner is a 5832x249 image with the "FAQ" mark centered and the
+       rest decorative dashes. Center it at a readable size and let the dashes
+       overflow off-screen (body has overflow-x:hidden). */
+    .faq-hero { padding: 16px 10px 6px; }
+    .faq-hero img {
+        display: block;
+        width: 1400px;
+        max-width: none;
+        margin-left: 50%;
+        transform: translateX(-50%);
+    }
+
     .faq-container {
         padding: 10px 16px 60px;
     }
 
+    /* Same ultra-wide centered-content banners as the hero. The desktop rule
+       shoves these -1500px left; reset and center them instead. */
     .faq-category-img {
-        height: 48px;
+        height: auto;
+        width: 1300px;
+        max-width: none;
+        margin-left: 50%;
+        transform: translateX(-50%);
+        margin-bottom: 8px;
+    }
+
+    /* Q&A images are normal-aspect with content filling the frame; drop the
+       desktop negative-margin offset so they fit the container. */
+    .faq-item-img {
+        width: 100%;
+        margin-left: 0;
+        margin-bottom: 4px;
     }
 
     .help-banner img {
-        width:100%;
+        width: 100%;
+        margin-left: 0;
     }
 }
