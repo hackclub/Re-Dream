@@ -32,35 +32,48 @@ export const GET: RequestHandler = async (request) => {
 	}
 	const { projects } = (await resp.json()) as { projects: HackatimeProject[] }
 
-	for (let i = 0; i < projects.length; i += 10) {
-		const batch = projects.slice(i, i + 10)
-		const airtableResp = await fetch(
-			`https://api.airtable.com/v0/${env.AIRTABLE_BASE}/Hackatime%20Projects`,
-			{
-				method: 'PATCH',
-				headers: {
-					'Content-Type': 'application/json',
-					Authorization: `Bearer ${env.AIRTABLE_PAT}`,
+	const url = new URL(`https://api.airtable.com/v0/${env.AIRTABLE_BASE}/Hackatime%20Projects`)
+	url.searchParams.set('filterByFormula', `{Hackatime User ID}=${hackatimeId}`)
+	url.searchParams.append('fields', 'Name')
+	url.searchParams.append('fields', 'Time')
+	const { records: existingProjects } = await fetch(url, {
+		headers: { Authorization: `Bearer ${env.AIRTABLE_PAT}` },
+	}).then((r) => r.json())
+
+	const existingMap = Object.fromEntries(
+		existingProjects.map((p: { id: string; fields: { Name: string } }) => [p.fields.Name, p]),
+	)
+
+	const toAdd = []
+	const toUpdate = []
+
+	for (const project of projects) {
+		if (existingMap[project.name]) {
+			toUpdate.push({
+				id: existingMap[project.name].id,
+				fields: { Time: project.total_seconds },
+			})
+		} else {
+			toAdd.push({
+				fields: {
+					Name: project.name,
+					Time: project.total_seconds,
+					'Hackatime User ID': hackatimeId,
 				},
-				body: JSON.stringify({
-					performUpsert: { fieldsToMergeOn: ['Name', 'Hackatime User ID'] },
-					records: batch.map((p) => ({
-						fields: {
-							Name: p.name,
-							Time: p.total_seconds,
-							'Hackatime User ID': hackatimeId,
-						},
-					})),
-				}),
-			},
-		)
-		if (!airtableResp.ok) {
-			console.log(await airtableResp.text())
-			return json({
-				success: false,
-				message: 'Failed to update your data from Hackatime. Please try again later.',
 			})
 		}
+	}
+
+	const updateResp = await fetch(env.AIRTABLE_UPDATE_HACKATIME_URL, {
+		method: 'POST',
+		headers: { 'Content-Type': 'application/json' },
+		body: JSON.stringify({ add: toAdd, update: toUpdate }),
+	})
+	if (!updateResp.ok) {
+		return json({
+			success: false,
+			message: 'Failed to update your Hackatime data. Please try again later.',
+		})
 	}
 
 	return json({ success: true, message: '' })
