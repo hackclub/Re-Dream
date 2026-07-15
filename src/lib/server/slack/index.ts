@@ -57,7 +57,7 @@ slack.on('home', async (event) => {
 		blocks: blocks(
 			header('Re-Dream'),
 			section(
-				`hey <@${event.user}>, welcome back to <#${env.SLACK_MAIN_CHANNEL}>! your current balance is *${chips}* chips.`,
+				`hey <@${event.user}>, welcome back to <#${env.SLACK_MAIN_CHANNEL}>! your current balance is *${Math.floor(chips)}* chips.`,
 			),
 			section('resources:'),
 			richText(
