@@ -1,27 +1,11 @@
 import { json } from '@sveltejs/kit'
 import type { RequestHandler } from './$types'
-import * as z from 'zod'
 import { slack } from '$lib/server/slack'
 import { env } from '$env/dynamic/private'
 import { actions, blocks, button, context, header, image, section } from 'slack.ts'
 import { formatSeconds } from '$lib/utils/formatting'
 import { error } from '@sveltejs/kit'
-
-const RequestSchema = z.object({
-	recordId: z.string().nonempty(),
-	name: z.string().nonempty(),
-	codeUrl: z.url().nonempty(),
-	playableUrl: z.url().nonempty(),
-	totalTime: z.int(),
-	slackId: z.string().nonempty(),
-	description: z.string().nonempty(),
-	isUpdate: z.boolean(),
-	updateDescription: z.string().nullable(),
-	hackatimeId: z.int(),
-	hackatimeProjects: z.string().array().nonempty(),
-	submissionTime: z.int(),
-	screenshot: z.string().array(),
-})
+import { SubmissionSchema } from '$lib/server/schemas/submission'
 
 export const POST: RequestHandler = async (request) => {
 	if (request.request.headers.get('Authorization') !== `Bearer ${env.AIRTABLE_SECRET_KEY}`) {
@@ -29,7 +13,7 @@ export const POST: RequestHandler = async (request) => {
 	}
 
 	const data = await request.request.json()
-	const submission = RequestSchema.parse(data)
+	const submission = SubmissionSchema.parse(data)
 
 	const buttonValue = JSON.stringify({
 		r: submission.recordId,
@@ -84,5 +68,5 @@ export const POST: RequestHandler = async (request) => {
 		})
 	}
 
-	return json({ success: true })
+	return json({ success: true, ts: message.ts })
 }
