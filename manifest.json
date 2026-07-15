@@ -15,7 +15,7 @@
 	},
 	"oauth_config": {
 		"scopes": {
-			"bot": ["channels:manage", "chat:write", "im:history", "im:write"]
+			"bot": ["users:read", "channels:manage", "chat:write", "im:history", "im:write"]
 		},
 		"pkce_enabled": false
 	},
