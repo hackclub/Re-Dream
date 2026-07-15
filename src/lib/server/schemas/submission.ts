@@ -21,3 +21,4 @@ export const SubmissionSchema = z.object({
 	reviewerSlackId: z.string().nullish(),
 	timeAdjustment: z.int().nullish(),
 })
+export type SubmissionSchema = z.infer<typeof SubmissionSchema>

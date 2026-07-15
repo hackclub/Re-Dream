@@ -13,7 +13,7 @@ import {
 	section,
 	type SubmissionInstance,
 } from 'slack.ts'
-import { EXTERNAL_URL } from './config'
+import { EXTERNAL_URL } from '../config'
 
 export const slack = new App({
 	token: env.SLACK_BOT_TOKEN,
@@ -141,6 +141,7 @@ slack.on('submit.approve_modal', async (event) => {
 					Status: 'Approved',
 					'Reviewer Slack ID': event.user.id,
 					'Internal Justification': justification,
+					'Public Comment': null,
 					'Time Adjustment': adjustment * 3600,
 				},
 			}),
@@ -152,12 +153,6 @@ slack.on('submit.approve_modal', async (event) => {
 			.message(ts)
 			.reply(`<@${event.user.id}>: failed to submit approval, please try again later`)
 	}
-	// return slack
-	// 	.channel(env.SLACK_REVIEWS_CHANNEL)
-	// 	.message(ts)
-	// 	.reply(
-	// 		`<@${event.user.id}> approved this project with hour adjustment: ${adjustment}. justification:\n${justification}`,
-	// 	)
 })
 
 function buildRejectModal() {
@@ -220,10 +215,29 @@ slack.on('submit.reject_modal', async (event) => {
 			.message(ts)
 			.reply(`<@${event.user.id}>: failed to submit rejection, please try again later`)
 	}
-	// return slack
-	// 	.channel(env.SLACK_REVIEWS_CHANNEL)
-	// 	.message(ts)
-	// 	.reply(
-	// 		`<@${event.user.id}> rejected this project. comment to user: ${comment}\n\ninternal comment: ${justification}`,
-	// 	)
+})
+
+slack.on('action:button.undo', async (event) => {
+	const { r: recordId } = JSON.parse(event.value!) as { r: string }
+
+	const resp = await fetch(
+		`https://api.airtable.com/v0/${env.AIRTABLE_BASE}/Hackatime%20Projects/${recordId}`,
+		{
+			method: 'PATCH',
+			headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${env.AIRTABLE_PAT}` },
+			body: JSON.stringify({
+				fields: {
+					Status: 'Pending',
+					'Reviewer Slack ID': event.event.user.id,
+					'Time Adjustment': 0,
+				},
+			}),
+		},
+	)
+	if (!resp.ok) {
+		return event.respond.message({
+			text: 'failed to undo, please try again later',
+			ephemeral: true,
+		})
+	}
 })
