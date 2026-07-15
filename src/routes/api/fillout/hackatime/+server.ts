@@ -1,6 +1,7 @@
 import { error, json } from '@sveltejs/kit'
 import type { RequestHandler } from './$types'
 import { env } from '$env/dynamic/private'
+import { fetchWithRetry } from '$lib/utils/fetch'
 
 export const GET: RequestHandler = async (request) => {
 	if (request.request.headers.get('Authorization') !== `Bearer ${env.FILLOUT_SECRET_KEY}`) {
@@ -36,7 +37,7 @@ export const GET: RequestHandler = async (request) => {
 	url.searchParams.set('filterByFormula', `{Hackatime User ID}=${hackatimeId}`)
 	url.searchParams.append('fields', 'Name')
 	url.searchParams.append('fields', 'Time')
-	const { records: existingProjects } = await fetch(url, {
+	const { records: existingProjects } = await fetchWithRetry(url, {
 		headers: { Authorization: `Bearer ${env.AIRTABLE_PAT}` },
 	}).then((r) => r.json())
 

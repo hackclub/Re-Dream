@@ -13,6 +13,7 @@ import {
 	section,
 	type SubmissionInstance,
 } from 'slack.ts'
+import { fetchWithRetry } from '$lib/utils/fetch'
 import { EXTERNAL_URL } from '../config'
 
 export const slack = new App({
@@ -25,7 +26,7 @@ slack.on('home', async (event) => {
 
 	const getUserUrl = new URL(`https://api.airtable.com/v0/${env.AIRTABLE_BASE}/Users?maxRecords=1`)
 	getUserUrl.searchParams.set('filterByFormula', `{Slack ID}='${event.user}'`)
-	const getUserResp = await fetch(getUserUrl, {
+	const getUserResp = await fetchWithRetry(getUserUrl, {
 		headers: { Authorization: `Bearer ${env.AIRTABLE_PAT}` },
 	})
 	if (!getUserResp.ok) {
@@ -131,7 +132,7 @@ slack.on('submit.approve_modal', async (event) => {
 	const justification = values.justification.value.value
 	const adjustment = (values.adjustment.value as { value: number }).value
 
-	const resp = await fetch(
+	const resp = await fetchWithRetry(
 		`https://api.airtable.com/v0/${env.AIRTABLE_BASE}/Hackatime%20Projects/${recordId}`,
 		{
 			method: 'PATCH',
@@ -194,7 +195,7 @@ slack.on('submit.reject_modal', async (event) => {
 	const justification = values.justification.value.value
 	const comment = values.comment.value.value
 
-	const resp = await fetch(
+	const resp = await fetchWithRetry(
 		`https://api.airtable.com/v0/${env.AIRTABLE_BASE}/Hackatime%20Projects/${recordId}`,
 		{
 			method: 'PATCH',
@@ -220,7 +221,7 @@ slack.on('submit.reject_modal', async (event) => {
 slack.on('action:button.undo', async (event) => {
 	const { r: recordId } = JSON.parse(event.value!) as { r: string }
 
-	const resp = await fetch(
+	const resp = await fetchWithRetry(
 		`https://api.airtable.com/v0/${env.AIRTABLE_BASE}/Hackatime%20Projects/${recordId}`,
 		{
 			method: 'PATCH',

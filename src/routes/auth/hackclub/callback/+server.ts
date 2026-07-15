@@ -1,5 +1,6 @@
 import { env } from '$env/dynamic/private'
 import { EXTERNAL_URL } from '$lib/server/config'
+import { fetchWithRetry } from '$lib/utils/fetch'
 import { error, redirect } from '@sveltejs/kit'
 import type { RequestHandler } from './$types'
 
@@ -53,7 +54,7 @@ export const GET: RequestHandler = async (request) => {
 
 	const authState = crypto.randomUUID()
 
-	const airtableResp = await fetch(`https://api.airtable.com/v0/${env.AIRTABLE_BASE}/Users`, {
+	const airtableResp = await fetchWithRetry(`https://api.airtable.com/v0/${env.AIRTABLE_BASE}/Users`, {
 		method: 'PATCH',
 		headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${env.AIRTABLE_PAT}` },
 		body: JSON.stringify({

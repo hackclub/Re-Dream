@@ -1,6 +1,7 @@
 import { env } from '$env/dynamic/private'
 import { EXTERNAL_URL } from '$lib/server/config'
 import { slack } from '$lib/server/slack'
+import { fetchWithRetry } from '$lib/utils/fetch'
 import { error, redirect } from '@sveltejs/kit'
 import { SlackWebAPIPlatformError } from 'slack.ts'
 import type { RequestHandler } from './$types'
@@ -28,7 +29,7 @@ export const GET: RequestHandler = async (request) => {
 
 	const getUserUrl = new URL(`https://api.airtable.com/v0/${env.AIRTABLE_BASE}/Users?maxRecords=1`)
 	getUserUrl.searchParams.set('filterByFormula', `{Auth State}='${state}'`)
-	const getUserResp = await fetch(getUserUrl, {
+	const getUserResp = await fetchWithRetry(getUserUrl, {
 		headers: { Authorization: `Bearer ${env.AIRTABLE_PAT}` },
 	})
 	if (!getUserResp.ok) return error(500, 'Failed to get user info')
@@ -47,7 +48,7 @@ export const GET: RequestHandler = async (request) => {
 	if (!hackatimeResp.ok) return error(500, 'Failed to get hackatime info')
 	const { id } = await hackatimeResp.json()
 
-	const updateUserResp = await fetch(
+	const updateUserResp = await fetchWithRetry(
 		`https://api.airtable.com/v0/${env.AIRTABLE_BASE}/Users/${airtableUserId}`,
 		{
 			method: 'PATCH',
