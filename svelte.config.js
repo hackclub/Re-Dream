@@ -5,6 +5,9 @@ import { vitePreprocess } from '@sveltejs/vite-plugin-svelte'
 const config = {
 	preprocess: vitePreprocess(),
 	kit: {
+		csrf: {
+			checkOrigin: false,
+		},
 		adapter: adapter({
 			// Pin the serverless runtime so builds are deterministic regardless
 			// of the local Node version. The site is fully prerendered, so this
