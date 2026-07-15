@@ -5,6 +5,7 @@ import { slack } from '$lib/server/slack'
 import { env } from '$env/dynamic/private'
 import { actions, blocks, button, context, header, image, section } from 'slack.ts'
 import { formatSeconds } from '$lib/utils/formatting'
+import { error } from '@sveltejs/kit'
 
 const RequestSchema = z.object({
 	recordId: z.string().nonempty(),
@@ -23,6 +24,10 @@ const RequestSchema = z.object({
 })
 
 export const POST: RequestHandler = async (request) => {
+	if (request.request.headers.get('Authorization') !== `Bearer ${env.AIRTABLE_SECRET_KEY}`) {
+		return error(401, 'no')
+	}
+
 	const data = await request.request.json()
 	const submission = RequestSchema.parse(data)
 
@@ -50,7 +55,7 @@ export const POST: RequestHandler = async (request) => {
 				...(submission.isUpdate
 					? [
 							section(
-								`*project is marked as an update!*\ntotal time (incl. ship): ${formatSeconds(submission.totalTime)}\nupdate description:\n${submission.updateDescription}`,
+								`*project is marked as an update!* total time (incl. this submission): ${formatSeconds(submission.totalTime)}. update description:\n${submission.updateDescription}`,
 							),
 						]
 					: []),
