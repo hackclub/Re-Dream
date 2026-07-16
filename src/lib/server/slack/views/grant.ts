@@ -1,3 +1,4 @@
+import { env } from '$env/dynamic/private'
 import type { GrantSchema } from '$lib/server/schemas/grant'
 import { actions, blocks, button, context, header, image, section } from 'slack.ts'
 
@@ -51,6 +52,11 @@ export function generateGrantMessage(grant: GrantSchema) {
 		section(
 			`status: ${grant.status.toLowerCase()}${grant.hcbId ? ` | hcb link: https://hcb.hackclub.com/grants/${grant.hcbId}` : ''}`,
 		),
-		...(buttons.length ? [actions(...buttons)] : []),
+		actions(
+			...buttons,
+			button('airtable').url(
+				`https://airtable.com/${env.AIRTABLE_BASE}/${env.AIRTABLE_GRANTS_TABLE}/${grant.recordId}`,
+			),
+		),
 	)
 }
