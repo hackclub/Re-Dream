@@ -3,9 +3,11 @@ import { waitUntil } from '@vercel/functions'
 import {
 	App,
 	blocks,
+	checkboxes,
 	header,
 	input,
 	numberInput,
+	option,
 	plain,
 	plainTextInput,
 	R,
@@ -15,6 +17,7 @@ import {
 } from 'slack.ts'
 import { fetchWithRetry } from '$lib/utils/fetch'
 import { EXTERNAL_URL } from '../config'
+import { getHCBAccessToken } from '../hcb'
 
 export const slack = new App({
 	token: env.SLACK_BOT_TOKEN,
@@ -76,6 +79,8 @@ slack.on('home', async (event) => {
 	})
 })
 
+// project review
+
 function buildApproveModal(justification: string) {
 	return blocks(
 		input(plainTextInput().multiline().default(justification).id('value'))
@@ -133,7 +138,7 @@ slack.on('submit.approve_modal', async (event) => {
 	const adjustment = (values.adjustment.value as { value: number }).value
 
 	const resp = await fetchWithRetry(
-		`https://api.airtable.com/v0/${env.AIRTABLE_BASE}/Hackatime%20Projects/${recordId}`,
+		`https://api.airtable.com/v0/${env.AIRTABLE_BASE}/Submissions/${recordId}`,
 		{
 			method: 'PATCH',
 			headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${env.AIRTABLE_PAT}` },
@@ -196,7 +201,7 @@ slack.on('submit.reject_modal', async (event) => {
 	const comment = values.comment.value.value
 
 	const resp = await fetchWithRetry(
-		`https://api.airtable.com/v0/${env.AIRTABLE_BASE}/Hackatime%20Projects/${recordId}`,
+		`https://api.airtable.com/v0/${env.AIRTABLE_BASE}/Submissions/${recordId}`,
 		{
 			method: 'PATCH',
 			headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${env.AIRTABLE_PAT}` },
@@ -222,7 +227,7 @@ slack.on('action:button.undo', async (event) => {
 	const { r: recordId } = JSON.parse(event.value!) as { r: string }
 
 	const resp = await fetchWithRetry(
-		`https://api.airtable.com/v0/${env.AIRTABLE_BASE}/Hackatime%20Projects/${recordId}`,
+		`https://api.airtable.com/v0/${env.AIRTABLE_BASE}/Submissions/${recordId}`,
 		{
 			method: 'PATCH',
 			headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${env.AIRTABLE_PAT}` },
@@ -240,5 +245,214 @@ slack.on('action:button.undo', async (event) => {
 			text: 'failed to undo, please try again later',
 			ephemeral: true,
 		})
+	}
+})
+
+// grant review
+
+function buildApproveGrantModal() {
+	return blocks(
+		input(plainTextInput().multiline().id('value'))
+			.label('hcb usage')
+			.hint(
+				"this will be used to check if the user's screenshot matches the item if preauth is turned on",
+			)
+			.id('usage'),
+		input(checkboxes(option('turn on preauth').value('on')).default('on').id('value'))
+			.label('preauth')
+			.hint('you should probably keep this on')
+			.id('preauth')
+			.optional(),
+	)
+}
+
+slack.on('action:button.approve_grant', async (event) => {
+	if (event.event.container.type !== 'message') return
+
+	await event.respond.modal({
+		type: 'modal',
+		callback_id: 'approve_grant_modal',
+		private_metadata: JSON.stringify({
+			...JSON.parse(event.value!),
+			ts: event.event.container.message_ts,
+		}),
+		title: plain('approve grant').build(),
+		submit: plain('approve').build(),
+		close: plain('cancel').build(),
+		blocks: buildApproveGrantModal(),
+	})
+})
+
+slack.on('submit.approve_grant_modal', async (event) => {
+	const { r: recordId, ts } = JSON.parse(event.view.private_metadata) as { r: string; ts: string }
+	const values = (event as SubmissionInstance<ReturnType<typeof buildApproveGrantModal>>).values
+
+	const usage = values.usage.value.value
+	const preauth = !!values.preauth.value.selected_options.length
+
+	const resp = await fetchWithRetry(
+		`https://api.airtable.com/v0/${env.AIRTABLE_BASE}/Grants/${recordId}`,
+		{
+			method: 'PATCH',
+			headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${env.AIRTABLE_PAT}` },
+			body: JSON.stringify({
+				fields: {
+					Status: 'Not Issued',
+					'Reviewer Slack ID': event.user.id,
+					'Public Comment': null,
+					'HCB Usage': usage,
+					'HCB Preauth': preauth,
+				},
+			}),
+		},
+	)
+	if (!resp.ok) {
+		return slack
+			.channel(env.SLACK_GRANTS_CHANNEL)
+			.message(ts)
+			.reply(`<@${event.user.id}>: failed to submit approval, please try again later`)
+	}
+})
+
+slack.on('action:button.undo_grant', async (event) => {
+	const { r: recordId } = JSON.parse(event.value!) as { r: string }
+
+	const resp = await fetchWithRetry(
+		`https://api.airtable.com/v0/${env.AIRTABLE_BASE}/Grants/${recordId}`,
+		{
+			method: 'PATCH',
+			headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${env.AIRTABLE_PAT}` },
+			body: JSON.stringify({
+				fields: {
+					Status: 'Under Review',
+					'Reviewer Slack ID': event.event.user.id,
+				},
+			}),
+		},
+	)
+	if (!resp.ok) {
+		return event.respond.message({
+			text: 'failed to undo, please try again later',
+			ephemeral: true,
+		})
+	}
+})
+
+function buildRejectGrantModal() {
+	return blocks(
+		input(plainTextInput().multiline().id('value'))
+			.label('comment to user')
+			.hint(
+				'this will be sent in the rejection message ("your $N.NN grant has been rejected. your reviewer said: ...")',
+			)
+			.id('comment'),
+	)
+}
+
+slack.on('action:button.reject_grant', async (event) => {
+	if (event.event.container.type !== 'message') return
+
+	await event.respond.modal({
+		type: 'modal',
+		callback_id: 'reject_grant_modal',
+		private_metadata: JSON.stringify({
+			...JSON.parse(event.value!),
+			ts: event.event.container.message_ts,
+		}),
+		title: plain('reject grant').build(),
+		submit: plain('reject').build(),
+		close: plain('cancel').build(),
+		blocks: buildRejectGrantModal(),
+	})
+})
+
+slack.on('submit.reject_grant_modal', async (event) => {
+	const { r: recordId, ts } = JSON.parse(event.view.private_metadata) as { r: string; ts: string }
+	const values = (event as SubmissionInstance<ReturnType<typeof buildRejectGrantModal>>).values
+
+	const comment = values.comment.value.value
+
+	const resp = await fetchWithRetry(
+		`https://api.airtable.com/v0/${env.AIRTABLE_BASE}/Grants/${recordId}`,
+		{
+			method: 'PATCH',
+			headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${env.AIRTABLE_PAT}` },
+			body: JSON.stringify({
+				fields: {
+					Status: 'Rejected',
+					'Reviewer Slack ID': event.user.id,
+					'Public Comment': comment,
+				},
+			}),
+		},
+	)
+	if (!resp.ok) {
+		return slack
+			.channel(env.SLACK_GRANTS_CHANNEL)
+			.message(ts)
+			.reply(`<@${event.user.id}>: failed to submit rejection, please try again later`)
+	}
+})
+
+slack.on('action:button.issue_grant', async (event) => {
+	if (event.event.container.type !== 'message') return
+
+	const {
+		r: recordId,
+		e: email,
+		a: amount,
+		p: preAuth,
+		u: hcbUsage,
+	} = JSON.parse(event.value!) as {
+		r: string
+		e: string
+		a: number
+		p: boolean
+		u: string
+	}
+	const token = await getHCBAccessToken()
+
+	const hcbResp = await fetch(
+		`https://hcb.hackclub.com/api/v4/organizations/ysws-re-dream/card_grants`,
+		{
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+			body: JSON.stringify({
+				email,
+				amount_cents: amount * 100,
+				pre_authorization_required: preAuth,
+				purpose: hcbUsage,
+			}),
+		},
+	)
+	if (!hcbResp.ok) {
+		return slack
+			.channel(env.SLACK_GRANTS_CHANNEL)
+			.message(event.event.container.message_ts)
+			.reply(
+				`<@${event.event.user.id}>: failed to issue card: hcb returned error ${hcbResp.status}: ${await hcbResp.text()}`,
+			)
+	}
+	const hcbData = await hcbResp.json()
+	const id = hcbData.id.split('_')[1]
+
+	const resp = await fetchWithRetry(
+		`https://api.airtable.com/v0/${env.AIRTABLE_BASE}/Grants/${recordId}`,
+		{
+			method: 'PATCH',
+			headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${env.AIRTABLE_PAT}` },
+			body: JSON.stringify({
+				fields: {
+					Status: 'Active',
+					'HCB ID': id,
+				},
+			}),
+		},
+	)
+	if (!resp.ok) {
+		return slack
+			.channel(env.SLACK_GRANTS_CHANNEL)
+			.message(event.event.container.message_ts)
+			.reply(`<@${event.event.user.id}>: hcb grant ${id} issued but could not update airtable`)
 	}
 })
