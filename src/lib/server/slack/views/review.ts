@@ -29,6 +29,13 @@ export function generateReviewMessage(submission: SubmissionSchema) {
 					),
 				]
 			: []),
+		...(submission.isUpdateToOther
+			? [
+					section(
+						`*project is marked as an update to ANOTHER ysws!* other ysws shipped to: ${submission.otherUpdateDescription}. update description:\n${submission.updateDescription}`,
+					),
+				]
+			: []),
 		...(submission.pastUnifiedHours?.length
 			? [
 					section(

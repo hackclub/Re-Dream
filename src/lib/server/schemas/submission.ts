@@ -10,6 +10,8 @@ export const SubmissionSchema = z.object({
 	description: z.string().nonempty(),
 	isUpdate: z.boolean(),
 	updateDescription: z.string().nullable(),
+	isUpdateToOther: z.boolean(),
+	otherUpdateDescription: z.string().nullable(),
 	hackatimeId: z.int(),
 	hackatimeProjects: z.string().array().nonempty(),
 	submissionTime: z.int(),
