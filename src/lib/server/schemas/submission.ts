@@ -10,6 +10,8 @@ export const SubmissionSchema = z.object({
 	description: z.string().nonempty(),
 	isUpdate: z.boolean(),
 	updateDescription: z.string().nullable(),
+	isUpdateToOther: z.boolean(),
+	otherUpdateDescription: z.string().nullable(),
 	hackatimeId: z.int(),
 	hackatimeProjects: z.string().array().nonempty(),
 	submissionTime: z.int(),
@@ -20,5 +22,7 @@ export const SubmissionSchema = z.object({
 	reviewMessageTs: z.string().nullish(),
 	reviewerSlackId: z.string().nullish(),
 	timeAdjustment: z.int().nullish(),
+	pastUnifiedHours: z.float64().array().nullish().default([]),
+	pastUnifiedYsws: z.string().array().nullish().default([]),
 })
 export type SubmissionSchema = z.infer<typeof SubmissionSchema>
