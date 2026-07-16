@@ -89,12 +89,12 @@ body {
 }
 
 .rsvp-button {
-	width: clamp(372px, 15vw, 340px);
+	width: clamp(372px, 15vw, 380px);
 	margin-top: -40px;
 }
 
 .faq-button {
-	width: clamp(185px, 7.5vw, 170px);
+	width: clamp(185px, 7.5vw, 210px);
 	margin-top: -40px;
 }
 
