@@ -29,6 +29,22 @@ export function generateReviewMessage(submission: SubmissionSchema) {
 					),
 				]
 			: []),
+		...(submission.pastUnifiedHours?.length
+			? [
+					section(
+						`*PROJECT IS PREVIOUSLY IN UNIFIED!* past ships unified hours: ${Array.from({
+							length: Math.min(
+								submission.pastUnifiedHours.length,
+								submission.pastUnifiedYsws?.length || 0,
+							),
+						})
+							.map(
+								(_, i) => `${submission.pastUnifiedHours![i]} (${submission.pastUnifiedYsws![i]})`,
+							)
+							.join(', ')}. total: ${submission.pastUnifiedHours.reduce((a, b) => a + b, 0)} hours`,
+					),
+				]
+			: []),
 		actions(
 			button('code url').url(submission.codeUrl),
 			button('playable url').url(submission.playableUrl),
