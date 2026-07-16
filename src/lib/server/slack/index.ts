@@ -55,6 +55,14 @@ slack.on('home', async (event) => {
 	}
 
 	const chips: number = userRecord.fields.Chips || 0
+	const ledgerItemsString: string = userRecord.fields['Ledger Items Names'] || ''
+	const ledgerCreatedString: string = userRecord.fields['Ledger Items Created At'] || ''
+
+	const ledgerItemNames = ledgerItemsString.split('\n')
+	const ledgerItemsCreated = ledgerCreatedString.split('\n')
+	const ledgerItems = Array.from({
+		length: Math.min(ledgerItemNames.length, ledgerItemsCreated.length),
+	}).map((_, i) => ({ name: ledgerItemNames[i]!, createdAt: new Date(ledgerItemsCreated[i]!) }))
 
 	await event.respond({
 		type: 'home',
@@ -75,6 +83,16 @@ slack.on('home', async (event) => {
 					R.section('apply for a grant: ', R.link('https://forms.hackclub.com/re-dream-apply')),
 				),
 			),
+			section('balance changes (latest to earliest):'),
+			ledgerItems.length
+				? richText(
+						R.list(
+							...ledgerItems.map(({ name, createdAt }) =>
+								R.section(R.text(name).bold(), ` -- `, R.date(createdAt, '{date} at {time}')),
+							),
+						),
+					)
+				: section('no transactions yet'),
 		),
 	})
 })
