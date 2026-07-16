@@ -4,8 +4,8 @@ export const GrantSchema = z.object({
 	recordId: z.string(),
 	amount: z.float64(),
 	usage: z.string(),
-	chipsBefore: z.int().nullish(),
-	chips: z.int(),
+	chipsBefore: z.float64().nullish(),
+	chips: z.float64(),
 	slackId: z.string(),
 	status: z
 		.enum(['Under Review', 'Not Issued', 'Active', 'Canceled', 'Rejected'])

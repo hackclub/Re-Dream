@@ -52,6 +52,7 @@ export const POST: RequestHandler = async (request) => {
 				.reply(`<@${grant.reviewerSlackId}> rejected this grant. public comment: ${grant.comment}`)
 		}
 	} else if (grant.status === 'Canceled') {
+		await slack.user(grant.slackId).send(`your *${formattedAmount}* grant has been canceled.`)
 		if (grant.grantMessageTs) {
 			await slack
 				.channel(env.SLACK_GRANTS_CHANNEL)
