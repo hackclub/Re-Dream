@@ -27,7 +27,7 @@
 		<img src="/images/ui/Logo.png" alt="Re-Dream" class="hero-logo reveal" use:reveal />
 		<div class="button-group reveal reveal-delay-2" use:reveal>
 			<a
-				href="https://rsvp.soon.it/re-dream"
+				href={resolve('/auth/hackclub/redirect')}
 				class="img-btn rsvp-button"
 				target="_blank"
 				rel="noopener noreferrer"><img src="/images/ui/RSVP.png" alt="RSVP" /></a
@@ -145,7 +145,7 @@
 		<div class="cta-wrapper reveal" use:reveal>
 			<img src="/images/ui/CTA.png" alt="Call to Action" class="cta-image" />
 			<a
-				href="https://rsvp.soon.it/re-dream"
+				href={resolve('/auth/hackclub/redirect')}
 				class="img-btn cta-rsvp-button"
 				target="_blank"
 				rel="noopener noreferrer"><img src="/images/ui/RSVP.png" alt="RSVP" /></a
