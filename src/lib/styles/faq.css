@@ -3,8 +3,10 @@
    Requires style.css to be loaded first
    ================================================ */
 
-/* Shrink the banner header on the FAQ page */
-.top-header {
+/* Shrink the banner header on the FAQ page. Scoped to .faq-top-header so
+   this rule can't restyle other pages when SvelteKit preloads this route's
+   CSS on link hover. */
+.top-header.faq-top-header {
 	padding: 40px 0;
 }
 
@@ -93,7 +95,7 @@
 
 /* Responsive */
 @media (max-width: 768px) {
-	.top-header {
+	.top-header.faq-top-header {
 		padding: 20px 0;
 	}
 
