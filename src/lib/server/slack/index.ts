@@ -58,7 +58,7 @@ slack.on('home', async (event) => {
 	const ledgerItemsString: string = userRecord.fields['Ledger Items Names'] || ''
 	const ledgerCreatedString: string = userRecord.fields['Ledger Items Created At'] || ''
 
-	const ledgerItemNames = ledgerItemsString.split('\n')
+	const ledgerItemNames = ledgerItemsString.split('\n').filter((x) => !!x)
 	const ledgerItemsCreated = ledgerCreatedString.split('\n')
 	const ledgerItems = Array.from({
 		length: Math.min(ledgerItemNames.length, ledgerItemsCreated.length),
@@ -88,7 +88,11 @@ slack.on('home', async (event) => {
 				? richText(
 						R.list(
 							...ledgerItems.map(({ name, createdAt }) =>
-								R.section(R.text(name).bold(), ` -- `, R.date(createdAt, '{date} at {time}')),
+								R.section(
+									R.text(name || 'unknown').bold(),
+									` -- `,
+									R.date(createdAt, '{date} at {time}'),
+								),
 							),
 						),
 					)
