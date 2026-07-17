@@ -9,7 +9,7 @@
 	<link rel="icon" type="image/png" href="/images/decorations/bob3.png" />
 </svelte:head>
 
-<header class="top-header">
+<header class="top-header faq-top-header">
 	<div class="header-content"></div>
 </header>
 
