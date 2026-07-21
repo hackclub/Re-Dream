@@ -71,11 +71,6 @@
 				alt="Can I submit to another hack club program?"
 				class="faq-item-img"
 			/>
-			<img
-				src="/images/faq/Faq_13.png"
-				alt="Can I get involved or contribute?"
-				class="faq-item-img"
-			/>
 		</div>
 
 		<!-- Help Banner -->
