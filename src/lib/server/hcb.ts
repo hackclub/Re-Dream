@@ -44,7 +44,7 @@ export async function getHCBAccessToken() {
 		const expiry = created_at + expires_in
 
 		const putResp = await fetch(
-			`https://api.cloudflare.com/client/v4/accounts/${env.CF_ACCOUNT_ID}/storage/kv/namespaces/$${env.CF_KV_NAMESPACE}/bulk`,
+			`https://api.cloudflare.com/client/v4/accounts/${env.CF_ACCOUNT_ID}/storage/kv/namespaces/${env.CF_KV_NAMESPACE}/bulk`,
 			{
 				method: 'PUT',
 				headers: {
